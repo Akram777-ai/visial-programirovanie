@@ -1,0 +1,3 @@
+package kz.atu.inventory;
+import javafx.application.Application;import javafx.fxml.FXMLLoader;import javafx.scene.Scene;import javafx.stage.Stage;
+public class App extends Application {public void start(Stage stage)throws Exception {FXMLLoader f=new FXMLLoader(App.class.getResource("main.fxml"));Scene scene=new Scene(f.load(),1080,680);((MainController)f.getController()).installShortcuts(scene);stage.setTitle("Inventory Management — Учёт склада");stage.setScene(scene);stage.show();}public static void main(String[] args){launch(args);}}

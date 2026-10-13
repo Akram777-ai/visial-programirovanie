@@ -1,0 +1,9 @@
+package kz.atu.inventory;
+import java.nio.file.*; import java.nio.charset.StandardCharsets; import java.io.*; import java.util.*;
+public class Store {
+ private static final Path FILE=Paths.get(System.getProperty("user.home"),"inventory-management-data.tsv");
+ public static List<Product> load() throws IOException {if(!Files.exists(FILE))return demo();List<Product> products=new ArrayList<>(); for(String s:Files.readAllLines(FILE,StandardCharsets.UTF_8)){String[] a=s.split("\t",-1);if(a.length!=5)continue;try{products.add(new Product(Integer.parseInt(a[0]),a[1],a[2],Integer.parseInt(a[3]),Double.parseDouble(a[4])));}catch(NumberFormatException ignored){}} return products;}
+ public static void save(Collection<Product> products)throws IOException {List<String> lines=new ArrayList<>();for(Product x:products){lines.add(x.getId()+"\t"+clean(x.getName())+"\t"+clean(x.getCategory())+"\t"+x.getQuantity()+"\t"+x.getPrice());}Files.write(FILE,lines,StandardCharsets.UTF_8);}
+ private static String clean(String s){return s.replace('\t',' ').replace('\n',' ');}
+ private static List<Product> demo(){return new ArrayList<>(Arrays.asList(new Product(101,"Ноутбук Acer","Электроника",12,245000),new Product(102,"Мышь USB","Электроника",45,3900),new Product(103,"Клавиатура","Электроника",28,12500),new Product(104,"Тетрадь А5","Канцелярия",170,450),new Product(105,"Ручка синяя","Канцелярия",230,180),new Product(106,"Блокнот","Канцелярия",62,1200),new Product(107,"Рюкзак","Аксессуары",18,18000),new Product(108,"Наушники","Электроника",35,12990),new Product(109,"Кабель Type-C","Аксессуары",80,2500),new Product(110,"Папка для бумаг","Канцелярия",75,850),new Product(111,"Флешка 64 ГБ","Электроника",22,5400),new Product(112,"Маркер","Канцелярия",54,600)));}
+}
